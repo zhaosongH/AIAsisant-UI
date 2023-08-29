@@ -46,6 +46,8 @@ const formRules = ref({
 const submitting = ref(false)
 const errorMsg = ref(null)
 const signUpForm = ref(null)
+const passwordInputType1 = ref('password')
+const passwordInputType2 = ref('password')
 
 const submit = async () => {
   errorMsg.value = null
@@ -58,7 +60,7 @@ const submit = async () => {
       body: JSON.stringify(formData.value)
     })
 
-    console.log(error.value)
+    console.log(error, error.value)
 
     if (error.value) {
       if (error.value.statusCode === 400) {
@@ -138,6 +140,16 @@ const handleFieldUpdate = (field) => {
                     variant="underlined"
                     @update:modelValue="handleFieldUpdate('password1')"
                     clearable
+                    :type="passwordInputType1"
+                    :append-inner-icon="
+                        passwordInputType1 === 'password'
+                            ? 'visibility'
+                            : 'visibility_off'
+                    "
+                    @click:append-inner="
+                        passwordInputType1 =
+                            passwordInputType1 === 'password' ? 'text' : 'password'
+                    "
                 ></v-text-field>
 
                 <v-text-field
@@ -148,16 +160,26 @@ const handleFieldUpdate = (field) => {
                     variant="underlined"
                     @update:modelValue="handleFieldUpdate('password2')"
                     clearable
+                    :type="passwordInputType2"
+                    :append-inner-icon="
+                        passwordInputType2 === 'password'
+                            ? 'visibility'
+                            : 'visibility_off'
+                    "
+                    @click:append-inner="
+                        passwordInputType2 =
+                            passwordInputType2 === 'password' ? 'text' : 'password'
+                    "
                 ></v-text-field>
 
-<!--                <v-text-field-->
-<!--                    v-model="formData.code"-->
-<!--                    :rules="formRules.code"-->
-<!--                    :label="$t('invitation code')"-->
-<!--                    variant="underlined"-->
-<!--                    @keyup.enter="submit"-->
-<!--                    clearable-->
-<!--                ></v-text-field>-->
+               <v-text-field
+                   v-model="formData.code"
+                   :rules="formRules.code"
+                   :label="$t('invitation code')"
+                   variant="underlined"
+                   @keyup.enter="submit"
+                   clearable
+              ></v-text-field>
 
               </v-form>
 

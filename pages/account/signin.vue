@@ -71,7 +71,7 @@ const formData = ref({
   username: "",
   password: "",
 });
-const formRules = ref({
+const formRules = ref({ // 用户名和密码的规则
   username: [(v) => !!v || $i18n.t("Username is required")],
   password: [(v) => !!v || $i18n.t("Password is required")],
 });
